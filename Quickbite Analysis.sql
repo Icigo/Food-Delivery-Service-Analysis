@@ -10,7 +10,7 @@ SELECT * FROM dim_restaurant;
 
 -- Primary Analysis (Based on Available data):
 
--- 1. Monthly Orders: Compare total orders across pre-crisis (Jan–May 2025) vs crisis (Jun–Sep 2025). How severe is the decline?
+-- 1. Monthly Orders: Compare total orders across pre-crisis (Janâ€“May 2025) vs crisis (Junâ€“Sep 2025). How severe is the decline?
 
 SELECT COUNT(CASE WHEN order_timestamp BETWEEN '2024-12-31' AND '2025-06-01' THEN order_id END) AS pre_crisis_total_orders,
 COUNT(CASE WHEN order_timestamp BETWEEN '2025-05-31' AND '2025-10-01' THEN order_id END) AS crisis_total_orders,
@@ -112,7 +112,6 @@ WHERE month_rank = 2;
 
 
 -- 8. Sentiment Insights: During the crisis period, identify the most frequently occurring negative keywords in customer review texts. 
--- (Hint: Use a Word Cloud visual in Power BI to visualize the findings.)
 
 SELECT review_text, COUNT(review_text) AS frequency
 FROM (
