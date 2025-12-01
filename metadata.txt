@@ -1,0 +1,163 @@
+This document provides metadata descriptions for the tables in the QuickBite Express database, enabling analysis of customer behavior, restaurant performance, delivery efficiency, and ratings.
+
+fact_orders
+
+Purpose:
+Tracks customer orders, including amounts, timestamps, and cancellation status.
+
+order_id: Unique identifier for each order.
+
+customer_id: ID linking to the customer table.
+
+restaurant_id: ID linking to the restaurant table.
+
+delivery_partner_id: ID linking to the delivery partner table.
+
+order_timestamp: Timestamp of when the order was placed.
+
+subtotal_amount: Total cost before discounts.
+
+discount_amount: Applied discounts.
+
+delivery_fee: Fee charged for delivery.
+
+total_amount: Final order amount.
+
+is_cod: Whether the order is Cash on Delivery (Y/N).
+
+is_cancelled: Whether the order was cancelled (Y/N).
+
+--------------------------------------------------------------------------------------------------
+
+fact_order_items
+
+
+Purpose:
+Tracks individual items in each order.
+
+order_id: Links to fact_orders.
+
+item_id: Foreign key linking to the dim_menu_item table, representing the item ordered.
+
+menu_item_id: ID linking to the menu items table.
+
+restaurant_id:
+
+quantity: Quantity of the item ordered.
+
+unit_price: Price per unit of the item.
+
+item_discount: Discount applied to the item.
+
+line_total: Price after applying item discount.
+
+--------------------------------------------------------------------------------------------------
+
+fact_ratings
+
+Purpose:
+Contains ratings and review data provided by customers for each order.
+
+order_id: Links to fact_orders.
+
+customer_id: Links to dim_customer.
+
+restaurant_id: Links to dim_restaurant.
+
+rating: Rating given by the customer (e.g., 1–5).
+
+review_text: Text of the review provided by the customer.
+
+review_timestamp: Timestamp of when the review was posted.
+
+sentiment_score: Sentiment score calculated based on review text (e.g., -1 to +1).
+
+--------------------------------------------------------------------------------------------------
+
+fact_delivery_performance
+
+Purpose:
+Tracks delivery performance metrics like delivery times and distance.
+
+order_id: Links to fact_orders.
+
+actual_delivery_time_mins: Actual delivery time in minutes.
+
+expected_delivery_time_mins: Expected delivery time based on SLA.
+
+distance_km: Distance traveled by the delivery partner (in km).
+
+--------------------------------------------------------------------------------------------------
+
+dim_customer
+
+Purpose:
+Captures customer onboarding and acquisition details including signup information, location, and acquisition channel.
+
+customer_id: Unique identifier assigned to each customer (e.g., CUST000007).
+
+signup_date: Date when the customer signed up for the service (DD-MM-YYYY format).
+
+city: City where the customer resides (e.g., Pune, Kolkata).
+
+acquisition_channel: Source through which the customer was acquired — e.g., Organic, Paid, Referral.
+
+--------------------------------------------------------------------------------------------------
+
+dim_restaurant
+
+Purpose:
+Contains information about the restaurants involved with QuickBite.
+
+restaurant_id: Unique identifier for each restaurant.
+
+restaurant_name: Name of the restaurant.
+
+city : City where the restaurant operates (e.g., Mumbai, Bengaluru).
+
+cusini_type: Type of cuisine offered by the restaurant (e.g., Indian, Italian, Chinese).
+
+partner_type: Type of partnership with QuickBite (e.g., Third-party, In-house).
+
+avg_prep_time: Average preparation time for orders (in minutes) (e.g., 20 minutes, 30 minutes).
+
+is_active: Indicates whether the restaurant is currently active on the platform (Yes/No).
+--------------------------------------------------------------------------------------------------
+
+dim_delivery_partner
+
+Purpose:
+Contains details about the delivery partners.
+
+delivery_partner_id: Unique identifier for each delivery partner.
+
+partner_name: Name of the delivery partner (e.g., Zomato, Swiggy).
+
+city: City where the delivery partner operates (e.g., Mumbai, Bengaluru).
+
+vehicle_type: Type of vehicle used for deliveries (e.g., Bike, Scooter, Cycle).
+
+employment: Employment status of the partner (e.g., Full-time, Part-time, Contract).
+
+avg_rating: Average customer rating for the delivery partner (scale of 1 to 5).
+ 
+is_active:Indicates whether the delivery partner is currently active (Yes/No).
+
+--------------------------------------------------------------------------------------------------
+
+dim_menu_item
+
+Purpose:
+Contains details about menu items offered by restaurants.
+
+menu_item_id: Unique identifier for each menu item.
+
+restaurant_id: Links to dim_restaurant.
+
+item_name: Name of the item (e.g., Veg Biryani, Margherita Pizza).
+
+category: Category of the item (e.g., Starter, Main Course).
+
+is_veg: Indicates if the item is vegetarian (Yes/No).
+
+price: Price of the menu item.
