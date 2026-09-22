@@ -16,6 +16,8 @@ The challenges were severe:
 
 • Customer acquisition costs rose significantly.
 
+Tableau Dashboard - [Link](https://public.tableau.com/app/profile/aditya.kar5369/viz/FoodDeliveryDashboard_17699379474170/Overview?publish=yes)
+
 ### Recommended Insights
 
 1. Monthly Orders: Compare total orders across pre-crisis (Jan–May 2025) vs crisis (Jun–Sep 2025). How severe is the decline?
